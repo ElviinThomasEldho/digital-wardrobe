@@ -7,15 +7,17 @@ import { useSnackbar } from "notistack";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase-config";
 
-const CreatePlayers = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const CreateItem = () => {
+  const [name, setName] = useState("");
   const [image, setImage] = useState("");
+  const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
+  const [season, setSeason] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSavePlayer = () => {
+  const handleSaveItem = () => {
     setLoading(true);
 
     console.log("button clicked");
@@ -28,18 +30,20 @@ const CreatePlayers = () => {
         console.log(url);
         setImage(url);
         const data = {
-          firstName,
-          lastName,
-          image,
+          name,
+          image: url,
+          type,
+          category,
+          season
         };
         axios
-          .post("https://coder-of-rajagiri-backend.vercel.app/player/", data)
+          .post("http://localhost:5555/item/", data)
           .then((response) => {
             setLoading(false);
-            enqueueSnackbar("Player Created successfully", {
+            enqueueSnackbar("Item Created successfully", {
               variant: "success",
             });
-            navigate("/admin/");
+            navigate("/dashboard/");
           })
           .catch((error) => {
             setLoading(false);
@@ -54,33 +58,49 @@ const CreatePlayers = () => {
   return (
     <div>
       <BackButton />
-      <h1>Create Player</h1>
+      <h1>Create Item</h1>
       {loading ? <Spinner /> : ""}
       <div>
         <div>
-          <label>FirstName</label>
+          <label>Item Name</label>
           <input
             type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>LastName</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div>
           <label>Image</label>
           <input type="file" onChange={(e) => setImage(e.target.files[0])} />
         </div>
-        <button onClick={handleSavePlayer}>Create</button>
+        <div>
+          <label>Type</label>
+          <input
+            type="text"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Category</label>
+          <input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Season</label>
+          <input
+            type="text"
+            value={season}
+            onChange={(e) => setSeason(e.target.value)}
+          />
+        </div>
+        <button onClick={handleSaveItem}>Create</button>
       </div>
     </div>
   );
 };
 
-export default CreatePlayers;
+export default CreateItem;

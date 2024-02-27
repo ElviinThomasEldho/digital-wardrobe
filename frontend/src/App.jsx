@@ -1,21 +1,21 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import CreateItem from './pages/Createitem'
+import EditItem from './pages/Edititem'
+import ShowItem from './pages/ShowItem'
+import DeleteItem from './pages/DeleteItem'
 import Home from './pages/Home'
-import CreatePlayer from './pages/CreatePlayer'
-import EditPlayer from './pages/EditPlayer'
-import ShowPlayer from './pages/ShowPlayer'
-import DeletePlayer from './pages/DeletePlayer'
-import Leaderboard from './pages/Leaderboard'
 
 const App = () => {
   return (
     <Routes>
-      {/* <Route path='/admin' element={<Home />}/>
-      <Route path='/players/create' element={<CreatePlayer />}/>
-      <Route path='/players/details/:id' element={<ShowPlayer />}/>
-      <Route path='/players/edit/:id' element={<EditPlayer />}/>
-      <Route path='/players/delete/:id' element={<DeletePlayer />}/> */}
-      <Route path='/' element={<Leaderboard />}/>
+      <Route path='/dashboard' element={<Dashboard />}/>
+      <Route path='/items/create' element={<CreateItem />}/>
+      <Route path='/items/details/:id' element={<ShowItem />}/>
+      <Route path='/items/edit/:id' element={<EditItem />}/>
+      <Route path='/items/delete/:id' element={<DeleteItem />}/>
+      <Route path='/' element={<Home />}/>
     </Routes>
   )
 }

@@ -4,38 +4,42 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
 import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
 
-const PlayersTable = ({ players }) => {
+const ItemTable = ({ items }) => {
   return (
     <table className="w-full border-separate border-spacing-2">
       <thead>
         <tr>
           <th>No</th>
-          <th>Player Name</th>
+          <th>Item Name</th>
           <th>Image</th>
-          <th>Points</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Season</th>
           <th>Operations</th>
         </tr>
       </thead>
       <tbody>
-        {players.map((player, index) => (
-          <tr key={player._id}>
+        {items.map((item, index) => (
+          <tr key={item._id}>
             <td>{index + 1}</td>
             <td>
-              {player.firstName} {player.lastName}
+              {item.name}
             </td>
             <td>
-              <img src={player.image} alt="player-image" height="100px" />
+              <img src={item.image} alt="item-image" height="100px" />
             </td>
-            <td>{player.points}</td>
+            <td>{item.type}</td>
+            <td>{item.category}</td>
+            <td>{item.season}</td>
             <td>
               <div>
-                <Link to={`/players/details/${player._id}`}>
+                <Link to={`/items/details/${item._id}`}>
                   <BsInfoCircle />
                 </Link>
-                <Link to={`/players/edit/${player._id}`}>
+                <Link to={`/items/edit/${item._id}`}>
                   <AiOutlineEdit />
                 </Link>
-                <Link to={`/players/delete/${player._id}`}>
+                <Link to={`/items/delete/${item._id}`}>
                   <MdOutlineDelete />
                 </Link>
               </div>
@@ -47,4 +51,4 @@ const PlayersTable = ({ players }) => {
   );
 };
 
-export default PlayersTable;
+export default ItemTable;

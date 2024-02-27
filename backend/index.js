@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import { PORT, mongodbURL } from "./config.js";
-import playerRoute from "./routes/playerRoute.js"
+import itemRoute from "./routes/itemRoute.js"
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.get('/', (request, response) => {
     return response.status(234).send('Welcome to IEDC')
 });
 
-app.use('/player', playerRoute);
+app.use('/item', itemRoute);
 // app.use('/itineraries', itineraryRoute);
 
 mongoose

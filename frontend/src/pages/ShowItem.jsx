@@ -4,17 +4,17 @@ import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 
-const ShowPlayer = () => {
-  const [player, setPlayer] = useState({});
+const ShowItem = () => {
+  const [item, setItem] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://coder-of-rajagiri-backend.vercel.app/player/${id}/`)
+      .get(`http://localhost:5555/item/${id}/`)
       .then((response) => {
-        setPlayer(response.data);
+        setItem(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -26,36 +26,36 @@ const ShowPlayer = () => {
   return (
     <div>
       <BackButton />
-      <h1>Show Player</h1>
+      <h1>Show Item</h1>
       {loading ? (
         <Spinner />
       ) : (
         <div>
           <div>
             <span className="title">ID</span>
-            <span>{player._id}</span>
+            <span>{item._id}</span>
           </div>
           <div>
             <span className="title">Full Name</span>
             <span>
-              {player.firstName} {player.lastName}
+              {item.firstName} {item.lastName}
             </span>
           </div>
           <div>
             <span className="title">Image</span>
-            <img src={player.image} alt="image" />
+            <img src={item.image} alt="image" />
           </div>
           <div>
             <span className="title">Points</span>
-            <span>{player.points}</span>
+            <span>{item.points}</span>
           </div>
           <div>
             <span className="title">Create Time</span>
-            <span>{new Date(player.createdAt).toString()}</span>
+            <span>{new Date(item.createdAt).toString()}</span>
           </div>
           <div>
             <span className="title">Last Update Time</span>
-            <span>{new Date(player.updatedAt).toString()}</span>
+            <span>{new Date(item.updatedAt).toString()}</span>
           </div>
         </div>
       )}
@@ -63,4 +63,4 @@ const ShowPlayer = () => {
   );
 };
 
-export default ShowPlayer;
+export default ShowItem;

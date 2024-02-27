@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
-import PlayerTable from "../components/home/PlayerTable";
-import { Link } from "react-router-dom";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
+import LeaderboardCard from "../components/LeaderboardCard";
+import Podium from "../components/Podium";
+import LeaderboardList from "../components/LeaderboardList";
 
 const Home = () => {
-  const [players, setPlayers] = useState([]);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showType, setShowType] = useState("table");
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://coder-of-rajagiri-backend.vercel.app/player/")
+      .get("http://localhost:5555/item/")
       .then((response) => {
         console.log(response);
-        setPlayers(response.data.data);
+        setItems(response.data.data.sort((a, b) => b.points - a.points));
         setLoading(false);
       })
       .catch((error) => {
@@ -27,15 +24,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h1>Players List</h1>
-        <Link to="/players/create" className="btn-add">
-          <MdOutlineAddBox /> Add Player
-        </Link>
-      </div>
-      {!loading && <PlayerTable players={players} />}
-    </div>
+    <>
+      <h1 className="title">Coder Of Rajagiri</h1>
+      {!loading && (
+        <>
+          <Podium items={items.slice(0, 3)} />
+          <LeaderboardList items={items.slice(3)} />
+        </>
+      )} 
+    </>
   );
 };
 
