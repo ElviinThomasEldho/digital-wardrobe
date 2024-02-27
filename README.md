@@ -1,2 +1,1 @@
-# CoderOfRajagiri
 # digital-wardrobe
